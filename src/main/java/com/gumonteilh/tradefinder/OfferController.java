@@ -1,7 +1,5 @@
 package com.gumonteilh.tradefinder;
 
-import java.rmi.ServerException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.gumonteilh.tradefinder.modele.Offer;
 import com.gumonteilh.tradefinder.service.OfferService;
 
 @RestController
-@RequestMapping("/api/Offer")
+@RequestMapping("/api/offer")
 public class OfferController {
     
     @Autowired
@@ -27,8 +26,8 @@ public class OfferController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Offer> create(@RequestBody Offer newOffer) {
-        Offer offer = offerService.save(newOffer);
+    public ResponseEntity<Offer> create(@RequestBody ObjectNode json) {
+        Offer offer = offerService.save(json.get("lookingForId").longValue(), json.get("forTradeId").longValue(), json.get("author").toString());
         if(offer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {

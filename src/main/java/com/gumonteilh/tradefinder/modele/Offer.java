@@ -20,13 +20,21 @@ public class Offer {
      * The Pokemon the user went to receive
      */
     @ManyToOne
-    private Pokemon LookingForPokemon;
+    private Pokemon lookingForPokemon;
 
     /**
      * The Pokemon the user went to send
      */
     @ManyToOne
-    private Pokemon ForTradePokemon;
+    private Pokemon forTradePokemon;
 
     private String author;
+
+    public Offer(Pokemon lookingForPokemon, Pokemon forTradePokemon, String author){
+        this.lookingForPokemon = lookingForPokemon;
+        this.forTradePokemon = forTradePokemon;
+        this.author = author;
+    }
+
+    public Offer(){}
 }
