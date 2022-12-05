@@ -19,4 +19,8 @@ public class PokemonService {
     public Optional<Pokemon> getPokemon(final Long id){
             return pokemonRepository.findById(id);
     }
+
+    public Iterable<Pokemon> getAllPokemon(){
+        return pokemonRepository.findAll();
+}
 }
