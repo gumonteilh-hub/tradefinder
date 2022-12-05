@@ -1,9 +1,12 @@
 package com.gumonteilh.tradefinder.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gumonteilh.tradefinder.repository.OfferRepository;
+import com.gumonteilh.tradefinder.helpers.LightOffer;
 import com.gumonteilh.tradefinder.modele.Offer;
 import com.gumonteilh.tradefinder.modele.Pokemon;
 
@@ -23,6 +26,10 @@ public class OfferService {
         return offerRepository.findAll();
     }
 
+    public Optional<Offer> getOffer(Long id) {
+        return offerRepository.findById(id);
+    }
+
     public Iterable<Offer> getOffersFromUser(String user) {
         // todo
         return null;
@@ -31,12 +38,18 @@ public class OfferService {
     public Offer save(Long lookingForId, Long forTradeId, String author) {
         Pokemon lookingForPokemon = pokemonService.getPokemon(lookingForId).orElseThrow(); 
         Pokemon forTradePokemon = pokemonService.getPokemon(forTradeId).orElseThrow();
-        System.out.println(forTradePokemon.toString());
         return offerRepository.save(new Offer(lookingForPokemon, forTradePokemon, author));
     }
 
     public void delete(Long id) {
         offerRepository.deleteById(id);
+    }
+
+    public Offer update(Offer offer, LightOffer newLightOffer) {
+        offer.setAuthor(newLightOffer.getAuthor());
+        offer.setLookingForPokemon(pokemonService.getPokemon(newLightOffer.getLookingForId()).get());
+        offer.setForTradePokemon(pokemonService.getPokemon(newLightOffer.getForTradeId()).get());
+        return offerRepository.save(offer);
     }
     
 }
