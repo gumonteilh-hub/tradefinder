@@ -41,6 +41,10 @@ public class OfferService {
         return offerRepository.save(new Offer(lookingForPokemon, forTradePokemon, author));
     }
 
+    public Offer save(Offer offer) {
+        return offerRepository.save(offer);
+    }
+
     public void delete(Long id) {
         offerRepository.deleteById(id);
     }

@@ -43,6 +43,16 @@ public class OfferController {
         } else {
             return new ResponseEntity<>(offer, HttpStatus.CREATED);
         }
+
+
+    @PostMapping("/")
+    public ResponseEntity<Offer> create(@RequestBody Offer offer) {
+        Offer newOffer = offerService.save(offer);
+        if(newOffer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(newOffer, HttpStatus.CREATED);
+        }
     }
 
     @PutMapping(value="/{id}")
