@@ -3,6 +3,7 @@ package com.gumonteilh.tradefinder.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/offer")
+@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600)
 public class OfferController {
     
     @Autowired
@@ -35,6 +37,11 @@ public class OfferController {
         return offerService.getOffer(id).orElseThrow();
     }
 
+    @GetMapping("/pokemon/{id}")
+    public Iterable<Offer> getOffersFromPokemonId(@PathVariable String id){
+        return offerService.getOffersFromPokemonId(id);
+    }
+/* 
     @PostMapping("/")
     public ResponseEntity<Offer> create(@RequestBody LightOffer lightOffer) {
         Offer offer = offerService.save(lightOffer.getLookingForId(), lightOffer.getForTradeId(), lightOffer.getAuthor());
@@ -43,6 +50,8 @@ public class OfferController {
         } else {
             return new ResponseEntity<>(offer, HttpStatus.CREATED);
         }
+    }*/
+
 
 
     @PostMapping("/")
