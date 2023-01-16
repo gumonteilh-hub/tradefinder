@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gumonteilh.tradefinder.repository.OfferRepository;
 import com.gumonteilh.tradefinder.helpers.LightOffer;
 import com.gumonteilh.tradefinder.modele.Offer;
+import com.gumonteilh.tradefinder.modele.Pokemon;
 
 import lombok.Data;
 
@@ -59,9 +60,11 @@ public class OfferService {
         return offerRepository.save(offer);
     }
 
-    public Iterable<Offer> getOffersFromPokemonId (String pokemonId) {
+    public Iterable<Offer> getOffersFromPokemonId (Long pokemonId) {
 
-        return offerRepository.findAllWithForTradePokemonId(pokemonId);
+        Pokemon forTradePokemon  = pokemonService.getPokemon(pokemonId).orElseThrow();
+
+        return offerRepository.findAllWithForTradePokemonId(forTradePokemon);
     }
     
 }
