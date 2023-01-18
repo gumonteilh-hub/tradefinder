@@ -37,9 +37,9 @@ public class OfferController {
         return offerService.getOffer(id).orElseThrow();
     }
 
-    @GetMapping("/pokemon/{id}")
-    public Iterable<Offer> getOffersFromPokemonId(@PathVariable String id){
-        return offerService.getOffersFromPokemonId(id);
+    @GetMapping("/pokemon/{id}/{lookingFor}")
+    public Iterable<Offer> getOffersFromPokemonId(@PathVariable String id, @PathVariable boolean lookingFor){
+        return offerService.getOffersFromPokemonId(Long.parseLong(id), lookingFor);
     }
 /* 
     @PostMapping("/")

@@ -60,11 +60,15 @@ public class OfferService {
         return offerRepository.save(offer);
     }
 
-    public Iterable<Offer> getOffersFromPokemonId (Long pokemonId) {
+    public Iterable<Offer> getOffersFromPokemonId (Long pokemonId, Boolean lookingFor) {
+        Pokemon pokemon  = pokemonService.getPokemon(pokemonId).orElseThrow();
 
-        Pokemon forTradePokemon  = pokemonService.getPokemon(pokemonId).orElseThrow();
-
-        return offerRepository.findAllWithForTradePokemonId(forTradePokemon);
+        if(lookingFor) {
+            return offerRepository.findAllWithLookingForPokemonId(pokemon);
+        } else {
+            return offerRepository.findAllWithForTradePokemonId(pokemon);
+        }
+        
     }
     
 }

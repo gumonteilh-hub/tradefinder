@@ -12,5 +12,8 @@ public interface OfferRepository extends CrudRepository<Offer, Long>{
 
     @Query("SELECT o FROM Offer o WHERE o.forTradePokemon = ?1")
     Iterable<Offer> findAllWithForTradePokemonId(Pokemon pokemon);
-    
+
+    @Query("SELECT o FROM Offer o WHERE o.lookingForPokemon = ?1")
+    Iterable<Offer> findAllWithLookingForPokemonId(Pokemon pokemon);
+
 }
