@@ -11,7 +11,7 @@ import com.gumonteilh.tradefinder.modele.Pokemon;
 import com.gumonteilh.tradefinder.service.PokemonService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600)
+@CrossOrigin(origins = "https://poketrade-dff2b.web.app/", maxAge = 3600)
 @RequestMapping("/api/pokemon")
 public class PokemonController {
 

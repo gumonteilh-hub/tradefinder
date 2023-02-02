@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/offer")
-@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600)
+@CrossOrigin(origins = "https://poketrade-dff2b.web.app/", maxAge = 3600)
 public class OfferController {
     
     @Autowired
